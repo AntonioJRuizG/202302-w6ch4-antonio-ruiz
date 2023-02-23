@@ -45,29 +45,22 @@ const server = http.createServer((req, resp) => {
         const num2 = urlParams.get('b');
         console.log(num1);
         console.log(typeof num1);
-        if (isNaN(Number(num1)) || isNaN(Number(num2))) {
+        console.log(typeof num2);
+        if (
+          isNaN(Number(num1)) ||
+          isNaN(Number(num2)) ||
+          num1 === '' ||
+          num2 === ''
+        ) {
           server.emit('error', new Error('Error 404'));
           resp.write(`
           <html lang="en">
-          <head>
-            <meta charset="UTF-8">
-            <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <link rel="stylesheet" href="index.css">
-            <link rel="stylesheet"
-            href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.no-icons.min.css">
-            <title>Calculator</title>
-          </head>
-          <body>
             <h3>Error 404</h3>
-            </body>
           </html>`);
-        }
-
-        console.log(num1, num2);
-        console.log(calculator(num1, num2));
-        const result = calculator(num1, num2);
-
-        if (!isNaN(Number(num1)) && !isNaN(Number(num2))) {
+        } else {
+          console.log(num1, num2);
+          console.log(calculator(num1, num2));
+          const result = calculator(num1, num2);
           resp.write(
             `<html>
             <section class="calculatorcontainer">
